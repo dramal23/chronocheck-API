@@ -3,7 +3,7 @@ const router = express.Router();
 const watches = require('../services/watches');
 
 /* GET watches listing. */
-router.get('/watches', function(req, res, next) {
+router.get('/', function(req, res, next) {
   try {
     res.json(watches.getMultiple(req.query.page));
   } catch(err) {
@@ -12,6 +12,7 @@ router.get('/watches', function(req, res, next) {
   }
 });
 
+/* GET brandnames. */
 router.get('/brandnames', function(req, res, next) {
     try {
       res.json(watches.getBrandName(req.query.page));
