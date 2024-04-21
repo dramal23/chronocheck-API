@@ -22,4 +22,14 @@ router.get('/brandnames', function(req, res, next) {
     }
   });
 
+/* GET data relative to homepage */
+router.get('/brandinfos', function(req, res, next) {
+  try {
+    res.json(watches.getBrandInfos(req.query.page));
+  } catch(err) {
+    console.error(`Error while getting brandnames `, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;
