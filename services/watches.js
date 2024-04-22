@@ -41,24 +41,30 @@ function getBrandInfos()
 }
 
 function getWatchDetails(watchModel) {
-  const data = db.query(`
-  SELECT 
-    watches.id AS watch_id,
+  const rawData = db.query(`
+  SELECT
     watches.brand_name,
     watches.model_name,
     watches.image,
-  GROUP_CONCAT(price_history.price) AS price_history
-  FROM 
-    watches
-  LEFT JOIN 
-    price_history ON watches.id = price_history.watch_id
-  WHERE 
-    watches.model_name = ?
-  GROUP BY 
-    watches.id
-  ORDER BY 
-    price_history.datetime ASC;
+    JSON_ARRAY(GROUP_CONCAT(price_history.price)) AS price_history
+  FROM
+      watches
+  LEFT JOIN
+      price_history ON watches.id = price_history.watch_id
+  WHERE
+      watches.model_name = ?
+  GROUP BY
+      watches.brand_name,
+      watches.model_name,
+      watches.image
   `, [watchModel]);
+
+  const data = rawData.map(row => ({
+    brand_name: row.brand_name,
+    model_name: row.model_name,
+    image: row.image,
+    price_history: JSON.parse(row.price_history.replace(/["']/g, ''))
+  }));
   
   return data;
 }
