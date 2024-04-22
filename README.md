@@ -1,8 +1,11 @@
-# This local API is running on port 4000 !
-Work in progress. It is meant to be run alongside the react chronocheck-front project.
+# This local API requires Node > v20.12.22 !
+
+In order to run the react chronocheck-front project you have to run this project.
+This will run on port 4000.
 
 # To use it, just run
 
 ```
-node app.js
+npm i
+node index.js
 ```
