@@ -26,6 +26,14 @@ const createPriceHistoryTable = `
     )
 `;
 
+const createLogoTable = `
+    CREATE TABLE IF NOT EXISTS brand_logos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    brand_name TEXT NOT NULL UNIQUE,
+    logo_url TEXT
+    )
+`;
+
 db.run(createWatchesTable, (err) => {
     if (err) console.error('Error creating watches table:', err);
     else console.log('Watches table created successfully');
@@ -34,4 +42,9 @@ db.run(createWatchesTable, (err) => {
 db.run(createPriceHistoryTable, (err) => {
     if (err) console.error('Error creating price history table:', err);
     else console.log('Price history table created successfully');
+});
+
+db.run(createLogoTable, (err) => {
+    if (err) console.error('Error creating logo table:', err);
+    else console.log('Logo table created successfully');
 });
