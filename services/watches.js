@@ -26,9 +26,9 @@ function getBrandInfos()
 {
   const data = db.query(`
   SELECT watches.brand_name, 
-        CAST(AVG(watches.price) AS INT) AS avg_price,
-        GROUP_CONCAT(price_history.price, ',') AS price_history,
-        brand_logos.logo_url AS logo_url
+       CAST(AVG(watches.price) AS INT) AS avg_price,
+       GROUP_CONCAT(price_history.price, ',') AS price_history,
+       brand_logos.logo_url AS logo_url
   FROM watches
   LEFT JOIN price_history ON watches.id = price_history.watch_id
   LEFT JOIN brand_logos ON watches.brand_name = brand_logos.brand_name
